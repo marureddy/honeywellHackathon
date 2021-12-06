@@ -3,24 +3,30 @@ package com.example.demo.Controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Product;
+import com.example.demo.repository.ProductRepository;
 
 
 @RestController
 @RequestMapping("/inventory")
 public class InventoryController {
 	
+	@Autowired
+	ProductRepository productRepository;
+	
 	
 	@PostMapping("/product")
-	public Product saveProduct() {
+	public Product saveProduct(@RequestBody Product product) {
+		Product productSaved = productRepository.save(product);
 		
-		return new Product() ;
+		return productSaved ;
 		
 	}
 	
